@@ -5,8 +5,8 @@ header('Cache-Control: no-cache, must-revalidate');
 // header('Content-type: application/json');
 function api_query($method, array $req = array()) {
 	// API settings
-	$key = ''; // your API-key
-	$secret = ''; // your Secret-key
+	$key = '0726c04ab92bf79d9e8b1427e78fb26522c67b4b'; // your API-key
+	$secret = '75eaeab993c93dcafc479f4230abf8e10e377f8c7656629e048cfd3b1c7b7d57034b16482b1ad8bf'; // your Secret-key
 	$req['method'] = $method;
 	$mt = explode(' ', microtime());
 	$req['nonce'] = $mt[1];
@@ -131,7 +131,6 @@ function volumeFinder($initial_volume, $id1, $id2, $id3){
 	echo "I can buy: ".$new_volume_0." with ".$new_volume."<br>";
 	if($new_volume_0 > $top_volume['market_2_sell_volume']){
 		$insuficient_volume_warning=1;
-		$buying_volume=$top_volume['market_2_sell_volume'];
 		echo "-No! ".($top_volume['market_2_sell_volume']-$new_volume_0)." missing.<br>";
 		echo "I can only buy: ".$top_volume['market_2_sell_volume']." .<br>";
 		echo "Recalculating the starting volume to match: ".$top_volume['market_2_sell_volume']." sell volume.<br>";
@@ -146,6 +145,7 @@ function volumeFinder($initial_volume, $id1, $id2, $id3){
 	}
 	//if any -No run again with $new_volume_0 as $balance if -Yes, echo as final buy volume
 	if($insuficient_volume_warning==1){
+		$buying_volume=$new_volume_0-($new_volume_0*0.002);
 		echo "<br><br>The safe volume to start the chain is: ".$buying_volume." run me again.";
 		return $buying_volume;
 	}else{
