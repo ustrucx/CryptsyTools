@@ -131,7 +131,6 @@ function volumeFinder($initial_volume, $id1, $id2, $id3){
 	echo "I can buy: ".$new_volume_0." with ".$new_volume."<br>";
 	if($new_volume_0 > $top_volume['market_2_sell_volume']){
 		$insuficient_volume_warning=1;
-		$buying_volume=$top_volume['market_2_sell_volume'];
 		echo "-No! ".($top_volume['market_2_sell_volume']-$new_volume_0)." missing.<br>";
 		echo "I can only buy: ".$top_volume['market_2_sell_volume']." .<br>";
 		echo "Recalculating the starting volume to match: ".$top_volume['market_2_sell_volume']." sell volume.<br>";
@@ -145,12 +144,20 @@ function volumeFinder($initial_volume, $id1, $id2, $id3){
 		echo "This order will generate: ".$new_volume_0." .<br>";
 	}
 	//if any -No run again with $new_volume_0 as $balance if -Yes, echo as final buy volume
+	$result = array();
 	if($insuficient_volume_warning==1){
+		$buying_volume=$new_volume_0-($new_volume_0*0.002);
 		echo "<br><br>The safe volume to start the chain is: ".$buying_volume." run me again.";
-		return $buying_volume;
+		$result['restart']=1;
+		$result['result']=$buying_volume;
+		return $result;
 	}else{
 		// echo "The initial volume: ".$total." is enough for the whole chain, the profit is: ".($total-$new_volume_0)." .";
-		echo "Estimate profit: ".($new_volume_0-$balance)." .";
+		$profit=$new_volume_0-$balance;
+		echo "Estimate profit: ".$profit." .";
+		$result['restart']=0;
+		$result['result']=$profit;
+		return $result;
 	}
 }
 function findPiramidTopVolume($marketid_0, $marketid_1, $marketid_2){
@@ -160,28 +167,28 @@ function findPiramidTopVolume($marketid_0, $marketid_1, $marketid_2){
 	$top_volume['market_0_name']=coinName($marketid_0);
 	$top_volume['market_0_buy_volume']=$market_0_top_orders['buy_volume'];
 	$top_volume['market_0_buy_price']=$market_0_top_orders['buy_price'];
-	$top_volume['market_0_buy_order_fill']=$market_0_top_orders['buy_volume']*$market_0_top_orders['buy_price'];
+	$top_volume['market_0_buy_order_fill']=$market_0_top_orders['buy_volume_total'];
 	$top_volume['market_0_sell_volume']=$market_0_top_orders['sell_volume'];
 	$top_volume['market_0_sell_price']=$market_0_top_orders['sell_price'];
-	$top_volume['market_0_sell_order_fill']=$market_0_top_orders['sell_volume']*$market_0_top_orders['sell_price'];
+	$top_volume['market_0_sell_order_fill']=$market_0_top_orders['sell_volume_total'];
 	//find second market max selling volume
 	$market_1_top_orders=getTopOrders($marketid_1);
 	$top_volume['market_1_buy_volume']=$market_1_top_orders['buy_volume'];
 	$top_volume['market_1_buy_price']=$market_1_top_orders['buy_price'];
-	$top_volume['market_1_buy_order_fill']=$market_1_top_orders['buy_volume']*$market_1_top_orders['buy_price'];
+	$top_volume['market_1_buy_order_fill']=$market_1_top_orders['buy_volume_total'];
 	$top_volume['market_1_name']=coinName($marketid_1);
 	$top_volume['market_1_sell_volume']=$market_1_top_orders['sell_volume'];
 	$top_volume['market_1_sell_price']=$market_1_top_orders['sell_price'];
-	$top_volume['market_1_sell_order_fill']=$market_1_top_orders['sell_volume']*$market_1_top_orders['sell_price'];
+	$top_volume['market_1_sell_order_fill']=$market_1_top_orders['sell_volume_total'];
 	//find third market max selling volume
 	$market_2_top_orders=getTopOrders($marketid_2);
 	$top_volume['market_2_buy_volume']=$market_2_top_orders['buy_volume'];
 	$top_volume['market_2_buy_price']=$market_2_top_orders['buy_price'];
-	$top_volume['market_2_buy_order_fill']=$market_2_top_orders['buy_volume']*$market_2_top_orders['buy_price'];
+	$top_volume['market_2_buy_order_fill']=$market_2_top_orders['buy_volume_total'];
 	$top_volume['market_2_name']=coinName($marketid_2);
 	$top_volume['market_2_sell_volume']=$market_2_top_orders['sell_volume'];
 	$top_volume['market_2_sell_price']=$market_2_top_orders['sell_price'];
-	$top_volume['market_2_sell_order_fill']=$market_2_top_orders['sell_volume']*$market_2_top_orders['sell_price'];
+	$top_volume['market_2_sell_order_fill']=$market_2_top_orders['sell_volume_total'];
 	return $top_volume;
 	// var_dump($top_volume);
 }
@@ -191,8 +198,10 @@ function getTopOrders($marketid){
 	$result = api_query("marketorders", array("marketid" => $marketid));
 	$orders['sell_price'] = $result['return']['sellorders'][0]['sellprice'];
 	$orders['sell_volume'] = $result['return']['sellorders'][0]['quantity'];
+	$orders['sell_volume_total'] = $result['return']['sellorders'][0]['total'];
 	$orders['buy_price'] = $result['return']['buyorders'][0]['buyprice'];
 	$orders['buy_volume'] = $result['return']['buyorders'][0]['quantity'];
+	$orders['buy_volume_total'] = $result['return']['buyorders'][0]['total'];
 	return $orders;
 }
 function compareBalance($coin, $volume){
