@@ -131,6 +131,7 @@ function volumeFinder($initial_volume, $id1, $id2, $id3){
 	echo "I can buy: ".$new_volume_0." with ".$new_volume."<br>";
 	if($new_volume_0 > $top_volume['market_2_sell_volume']){
 		$insuficient_volume_warning=1;
+		$buying_volume=$top_volume['market_2_sell_volume'];
 		echo "-No! ".($top_volume['market_2_sell_volume']-$new_volume_0)." missing.<br>";
 		echo "I can only buy: ".$top_volume['market_2_sell_volume']." .<br>";
 		echo "Recalculating the starting volume to match: ".$top_volume['market_2_sell_volume']." sell volume.<br>";
@@ -145,7 +146,6 @@ function volumeFinder($initial_volume, $id1, $id2, $id3){
 	}
 	//if any -No run again with $new_volume_0 as $balance if -Yes, echo as final buy volume
 	if($insuficient_volume_warning==1){
-		$buying_volume=$new_volume_0-($new_volume_0*0.002);
 		echo "<br><br>The safe volume to start the chain is: ".$buying_volume." run me again.";
 		return $buying_volume;
 	}else{
