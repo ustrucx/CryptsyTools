@@ -5,8 +5,8 @@ header('Cache-Control: no-cache, must-revalidate');
 // header('Content-type: application/json');
 function api_query($method, array $req = array()) {
 	// API settings
-	$key = '0726c04ab92bf79d9e8b1427e78fb26522c67b4b'; // your API-key
-	$secret = '75eaeab993c93dcafc479f4230abf8e10e377f8c7656629e048cfd3b1c7b7d57034b16482b1ad8bf'; // your Secret-key
+	$key = ''; // your API-key
+	$secret = ''; // your Secret-key
 	$req['method'] = $method;
 	$mt = explode(' ', microtime());
 	$req['nonce'] = $mt[1];
