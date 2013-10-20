@@ -1,14 +1,15 @@
-cryptsy.php -> cryptsy api wrapper and pyramid code
-index.html -> javascript interface to access cryptsy.php
-NET-LTC-BTC-XPM-NET.php -> bug infested implementation with execute buttons
-NET-LTC-XPM-NET.php -> latest pyramid example code *main work in progress*
+This is a NET trading tool made to support NET miners to increase their mined volume.
 
-The idea is to call volumeFinder(0, 108, 106, 104); if it output a net volume run it again with that net vomlume instead of 0, if it outputs a profit value generate orders else run itself again with the new return. If I can make this volumeFinder() consistent against the market I will work on the execute buttons.
+cryptsy.php -> cryptsy api same as in cryptsy.com
+tool.php -> "arbitrage" functions
+NET-LTC-XPM-NET.php -> file for this loop
 
-this is not bugfree, I am not responsible for any loss you might have by using this software, by using this you agree to take full responsability.
+This project depends on a webserver with php support, If you use this on a public server you _MUST_ use a .htaccess to protect the directory with a password, you have to fill your apikey and secret in cryptsy.php then run NET-LTC-XPM-NET.php.
+
+At this time the app have bugs when the lowest volume loop is net/ltc, the other possible lowest markets are working well and will print out all the info needed to place the orders.
 
 usTrUcX
 net:nLw3HZcu2WGtBmYYL1pjHt5eSkktHYpk1g
 btc:17iknQU7YxCMGnB1Sm72Z92HDNK9Myts7z
 xpm:AMWJDbL59BMfRuzQxpE9A4DFgfgR4tqQmJ
-thankyou, glad to help :)
+thank you, glad to help :)
