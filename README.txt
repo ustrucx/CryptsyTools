@@ -6,7 +6,7 @@ NET-LTC-XPM-NET.php -> file for this loop
 
 This project depends on a webserver with php support, If you use this on a public server you _MUST_ use a .htaccess to protect the directory with a password, you have to fill your apikey and secret in cryptsy.php then run NET-LTC-XPM-NET.php.
 
-At this time the app have bugs when the lowest volume loop is net/ltc, the other possible lowest markets are working well and will print out all the info needed to place the orders.
+At this time the app have unknow bugs, please report them, everything _should_ be working but do compare the output against cryptsy site before placing orders.
 
 usTrUcX
 net:nLw3HZcu2WGtBmYYL1pjHt5eSkktHYpk1g
