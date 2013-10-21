@@ -8,7 +8,36 @@ function compareMarkets($id0, $id1, $id2){
 	$market_2['sell_volume']){
 		//market 0
 		echo $market_0['market_name']." is the lower volume with: ".$market_0['buy_volume'].$market_0['market_name_primary']." .";
-		echo "<br>Trying ".$market_0['market_name']." order: Sell ".$market_0['sell_volume'].$market_2['market_name_secondary']." for: ".$market_0['sell_volume_total']." .";
+		//first order
+		echo "<br>Trying ".$market_0['market_name']." order: Sell ".$market_0['buy_volume'].$market_0['market_name_primary']." for: ".$market_0['buy_price']." .";
+		$amount_to_sell=$market_0['buy_volume'];
+		$initial_investment=$amount_to_sell;
+		echo "<br>I can Sell: ".$amount_to_sell.$market_0['market_name_primary']." .";
+		$fee_calc=api_query("calculatefees", array("ordertype" => 'Sell', 'quantity' => $amount_to_sell, 'price' => $market_0['buy_price']));
+		$market_0_total=$fee_calc['return']['net'];
+		echo "<br>This sucker gave me only: ".$market_0_total.$market_0['market_name_secondary']." moving on.";
+		//second order
+		echo "<br>Trying ".$market_1['market_name']." order: Buy ".$market_0_total.$market_1['market_name_secondary']." worth of: ".$market_1['market_name_primary']." .";
+		$amount_to_buy=$market_0_total/$market_1['sell_price'];
+		$amount_to_buy=$amount_to_buy-($amount_to_buy*0.002);
+		echo "<br>I can Buy: ".$amount_to_buy.$market_1['market_name_primary']." .";
+		$fee_calc=api_query("calculatefees", array("ordertype" => 'Buy', 'quantity' => $amount_to_buy, 'price' => $market_1['sell_price']));
+		$market_1_total=$fee_calc['return']['net'];
+		echo "<br>This sucker charged me: ".$market_1_total.$market_1['market_name_secondary']." moving on.";
+		//third order
+		echo "<br>Trying ".$market_2['market_name']." order: Buy ".$amount_to_buy.$market_2['market_name_secondary']." worth of: ".$market_2['market_name_primary']." .";
+		$amount_to_buy=$amount_to_buy/$market_2['sell_price'];
+		$amount_to_buy=$amount_to_buy-($amount_to_buy*0.002);
+		echo "<br>I can Buy: ".$amount_to_buy.$market_2['market_name_primary']." .";
+		$fee_calc=api_query("calculatefees", array("ordertype" => 'Buy', 'quantity' => $amount_to_buy, 'price' => $market_2['sell_price']));
+		$market_2_total=$fee_calc['return']['net'];
+		echo "<br>This sucker charged me: ".$market_2_total.$market_2['market_name_secondary']." finished.";
+		echo "<br>I ended up with: ".$amount_to_buy.$market_2['market_name_primary']." from the starting: ".$initial_investment.$market_0['market_name_primary']." .";
+		if($initial_investment>$amount_to_buy){
+			echo "<br>Theres no profit here: ".($amount_to_buy-$initial_investment).$market_2['market_name_primary']." from the initial: ".$initial_investment.$market_0['market_name_primary']." .";
+		}else{
+			echo "<br>Theres ".($amount_to_buy-$initial_investment).$market_2['market_name_primary']." profit here from the initial: ".$initial_investment.$market_0['market_name_primary']." investment.";
+		}
 	}else if($market_1['sell_volume_total']<$market_0['buy_volume_total']&&$market_1['buy_volume']<$market_2['sell_volume_total']){
 		//market 1
 		echo $market_1['market_name']." is the lower volume with: ".$market_1['sell_volume_total'].$market_1['market_name_secondary']." .";
