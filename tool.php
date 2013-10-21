@@ -38,7 +38,7 @@ function compareMarkets($id0, $id1, $id2){
 		}else{
 			echo "<br>Theres ".($amount_to_buy-$initial_investment).$market_2['market_name_primary']." profit here from the initial: ".$initial_investment.$market_0['market_name_primary']." investment.";
 		}
-	}else if($market_1['sell_volume_total']<$market_0['buy_volume_total']&&$market_1['buy_volume']<$market_2['sell_volume_total']){
+	}else if($market_1['sell_volume_total']<$market_0['buy_volume_total']&&$market_1['sell_volume']<$market_2['sell_volume_total']){
 		//market 1
 		echo $market_1['market_name']." is the lower volume with: ".$market_1['sell_volume_total'].$market_1['market_name_secondary']." .";
 		//first order
