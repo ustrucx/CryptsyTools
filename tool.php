@@ -120,8 +120,8 @@ function getTopOrders($marketid){
 	$orders = array();
 	$result = api_query("marketorders", array("marketid" => $marketid));
 	$orders['market_name']=coinName($marketid);
-	$orders['market_name_primary']=coinSingleName($marketid);
-	$orders['market_name_secondary']=coinPostName($marketid);
+	$orders['market_name_primary']=coinPrimaryName($marketid);
+	$orders['market_name_secondary']=coinSecondaryName($marketid);
 	$orders['sell_price'] = $result['return']['sellorders'][0]['sellprice'];
 	$orders['sell_volume'] = $result['return']['sellorders'][0]['quantity'];
 	$orders['sell_volume_total'] = $result['return']['sellorders'][0]['total'];
@@ -138,7 +138,7 @@ function coinName($id){
 		}
 	}
 }
-function coinSingleName($id){
+function coinPrimaryName($id){
 	$markets = api_query("getmarkets");
 	foreach($markets["return"] as $market){
 		if($market["marketid"]==$id){
@@ -146,7 +146,7 @@ function coinSingleName($id){
 		}
 	}
 }
-function coinPostName($id){
+function coinSecondaryName($id){
 	$markets = api_query("getmarkets");
 	foreach($markets["return"] as $market){
 		if($market["marketid"]==$id){
