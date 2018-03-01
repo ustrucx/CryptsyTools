@@ -1,6 +1,6 @@
-Copyright (C) 2013  Johnny "usTrUcX"  joaogarcia@gmail.com
+Copyright (C) 2013  Johnny "usTrUcX"
 
-This is a NET trading tool made to support NET miners to increase their mined volume.
+This is a !!DEPRECATED!! NET trading tool made to support NET miners to increase their mined volume.
 
 -----------------------------------------------------------------------
 
@@ -31,14 +31,8 @@ At this time the app have unknow bugs, please report them, everything _should_ b
 
 -----------------------------------------------------------------------
 
-You can discuss, give feedback and look for help at http://cryptomunity.boards.net/thread/20/netcoin-arbitrage-tool-cryptsy-exchange
-
 usTrUcX
 
-net:nLw3HZcu2WGtBmYYL1pjHt5eSkktHYpk1g
+btc:16CfonnRtrbciYQkkEd4EwkgCefnYeCNoB
 
-btc:17iknQU7YxCMGnB1Sm72Z92HDNK9Myts7z
-
-xpm:AMWJDbL59BMfRuzQxpE9A4DFgfgR4tqQmJ
-
-thank you, glad to help :)
+thank you :)
