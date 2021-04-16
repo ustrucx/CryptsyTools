@@ -30,9 +30,3 @@ This project depends on a webserver with php support, If you use this on a publi
 At this time the app have unknow bugs, please report them, everything _should_ be working but do compare the output against cryptsy site before placing orders.
 
 -----------------------------------------------------------------------
-
-usTrUcX
-
-btc:16CfonnRtrbciYQkkEd4EwkgCefnYeCNoB
-
-thank you :)
